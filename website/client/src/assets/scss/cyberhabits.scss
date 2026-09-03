@@ -1,0 +1,25 @@
+// CyberHabits identity layer. Keep overrides here while the inherited UI is
+// migrated component-by-component.
+:root {
+  --cyber-void: #{$cyber-void};
+  --cyber-panel: #{$cyber-panel};
+  --cyber-panel-raised: #{$cyber-panel-raised};
+  --cyber-cyan: #{$cyber-cyan};
+  --cyber-magenta: #{$cyber-magenta};
+  --cyber-violet: #{$cyber-violet};
+  --cyber-lime: #{$cyber-lime};
+  --cyber-amber: #{$cyber-amber};
+  --cyber-danger: #{$cyber-danger};
+  --cyber-text: #{$cyber-text};
+  --cyber-text-muted: #{$cyber-text-muted};
+}
+
+::selection {
+  background: rgba($cyber-magenta, 0.4);
+  color: $cyber-text;
+}
+
+:focus-visible {
+  outline: 2px solid $cyber-cyan;
+  outline-offset: 2px;
+}

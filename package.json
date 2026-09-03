@@ -1,6 +1,6 @@
 {
-  "name": "habitica",
-  "description": "A habit tracker app which treats your goals like a Role Playing Game.",
+  "name": "cyberhabits",
+  "description": "An open-source habit tracker that treats your goals like a cyber-noir role-playing game.",
   "version": "5.50.2",
   "main": "./website/server/index.js",
   "dependencies": {

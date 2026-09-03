@@ -1,6 +1,18 @@
-// Colors taken from the Habitica Color Palette
-// The palette is available at https://habitica.fandom.com/wiki/Guidance_for_Comrades?file=Color_palette_official.png
-// The colors are named from the darkest to the lightest
+// CyberHabits cyber-noir palette.
+// Semantic aliases below let the existing interface adopt the new identity
+// incrementally without coupling components to raw color values.
+
+$cyber-void: #070912;
+$cyber-panel: #101426;
+$cyber-panel-raised: #171d33;
+$cyber-cyan: #32f6ff;
+$cyber-magenta: #ff3fd1;
+$cyber-violet: #8b5cf6;
+$cyber-lime: #9dff57;
+$cyber-amber: #ffca58;
+$cyber-danger: #ff496c;
+$cyber-text: #f3f7ff;
+$cyber-text-muted: #9ca9c7;
 
 $white: #FFFFFF;
 $black: #1A181D;

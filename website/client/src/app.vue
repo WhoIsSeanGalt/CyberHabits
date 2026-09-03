@@ -268,7 +268,7 @@ export default {
         if (errorData.error !== 'NotificationNotFound') {
           // dispatch as one snackbar notification
           this.$store.dispatch('snackbars:add', {
-            title: 'Habitica',
+            title: 'CyberHabits',
             text: errorsToShow.join(' '),
             type: 'error',
             timeout: snackbarTimeout,
@@ -288,7 +288,7 @@ export default {
     if (sessionStorage.getItem('passwordChangeSuccess') === 'true') {
       sessionStorage.removeItem('passwordChangeSuccess');
       this.$store.dispatch('snackbars:add', {
-        title: 'Habitica',
+        title: 'CyberHabits',
         text: this.$t('passwordSuccess'),
         type: 'success',
         timeout: true,

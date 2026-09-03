@@ -787,7 +787,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {
-      fullTitle: 'Habitica - Gamify Your Life',
+      fullTitle: 'CyberHabits — Upgrade Your Routine',
     });
   },
   methods: {
