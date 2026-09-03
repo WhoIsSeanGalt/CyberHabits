@@ -23,3 +23,62 @@
   outline: 2px solid $cyber-cyan;
   outline-offset: 2px;
 }
+
+// First dashboard pass: preserve task-state controls while moving the work
+// surface and cards into a high-contrast cyber-noir visual system.
+.user-tasks-page {
+  background:
+    linear-gradient(rgba($cyber-cyan, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($cyber-cyan, 0.025) 1px, transparent 1px),
+    $cyber-void;
+  background-size: 24px 24px;
+  color: $cyber-text;
+  min-height: 100vh;
+}
+
+.user-tasks-page .tasks-column {
+  background: rgba($cyber-panel, 0.82);
+  border: 1px solid rgba($cyber-cyan, 0.14);
+  box-shadow: 0 16px 36px rgba($black, 0.28);
+}
+
+.user-tasks-page .task {
+  background: $cyber-panel-raised;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px rgba($black, 0.34);
+}
+
+.user-tasks-page .task-content {
+  background: $cyber-panel-raised;
+  color: $cyber-text;
+}
+
+.user-tasks-page .task-title,
+.user-tasks-page .task-title p {
+  color: $cyber-text;
+}
+
+.user-tasks-page .task-notes,
+.user-tasks-page .icons {
+  color: $cyber-text-muted;
+}
+
+.user-tasks-page .task:not(.groupTask):hover,
+.user-tasks-page .task:not(.groupTask):focus-within {
+  outline: 1px solid $cyber-cyan;
+  box-shadow: 0 0 0 1px rgba($cyber-cyan, 0.2), 0 0 16px rgba($cyber-cyan, 0.12);
+}
+
+// Landing-page color bridge. Original artwork will be replaced separately.
+#front > .bg-purple-300 {
+  background:
+    radial-gradient(circle at 18% 20%, rgba($cyber-magenta, 0.2), transparent 34%),
+    radial-gradient(circle at 82% 12%, rgba($cyber-cyan, 0.18), transparent 32%),
+    $cyber-void !important;
+}
+
+#front #gamify-life,
+#front #use-cases,
+#front #level-up-anywhere {
+  background-color: $cyber-panel !important;
+}

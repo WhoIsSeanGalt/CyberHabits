@@ -18,6 +18,11 @@ The initial milestone covers:
 - the core task dashboard and onboarding experience;
 - an asset and trademark separation audit.
 
+Working vocabulary: Gold becomes **Credits**, Experience becomes
+**Reputation (REP)**, Mana becomes **Charge**, Quests become **Contracts**, and
+Parties become **Crews**. These are presentation labels; inherited internal API
+field names remain unchanged for compatibility.
+
 Inherited fantasy assets remain during development and must not be treated as
 final CyberHabits artwork.
 
