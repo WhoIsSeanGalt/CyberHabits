@@ -5,16 +5,10 @@
         class="nav-item"
         :to="!isUserLoggedIn ? '/static/home' : '/'"
       >
-        <div
-          v-if="$route.name === 'plans'"
-          class="habitica-logo svg-icon"
-          v-html="icons.purpleLogo"
-        ></div>
-        <div
-          v-else
-          class="habitica-logo svg-icon"
-          v-html="icons.habiticaLogo"
-        ></div>
+        <div class="cyberhabits-wordmark">
+          <span class="cyberhabits-monogram">CH</span>
+          <span>CYBER<span class="wordmark-accent">HABITS</span></span>
+        </div>
       </router-link>
     </div>
     <div class="collapse navbar-collapse">
@@ -273,20 +267,7 @@
 </style>
 
 <script>
-import habiticaLogo from '@/assets/svg/logo-horizontal.svg?raw';
-import purpleLogo from '@/assets/svg/logo-horizontal-purple.svg?raw';
-import melior from '@/assets/svg/melior.svg?raw';
-
 export default {
-  data () {
-    return {
-      icons: Object.freeze({
-        habiticaLogo,
-        purpleLogo,
-        melior,
-      }),
-    };
-  },
   computed: {
     isUserLoggedIn () {
       return this.$store.state.isUserLoggedIn;

@@ -14,14 +14,10 @@
     >
       <b-navbar-brand
         class="brand"
-        aria-label="Habitica"
+        aria-label="CyberHabits"
       >
         <router-link to="/">
-          <div
-            class="logo svg-icon svg color gryphon pl-2 mr-3"
-            v-html="icons.melior"
-          ></div>
-          <div class="svg-icon"></div>
+          <div class="cyberhabits-monogram mr-3">CH</div>
         </router-link>
         <div class="svg-icon"></div>
       </b-navbar-brand>
@@ -796,8 +792,6 @@ import goldIcon from '@/assets/svg/gold.svg?raw';
 import syncIcon from '@/assets/svg/sync.svg?raw';
 import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
 import chevronDownIcon from '@/assets/svg/chevron-down.svg?raw';
-import melior from '@/assets/svg/melior.svg?raw';
-
 import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
@@ -832,7 +826,6 @@ export default {
         gold: goldIcon,
         hourglasses: svgHourglasses,
         sync: syncIcon,
-        melior,
         chevronDown: chevronDownIcon,
       }),
     };

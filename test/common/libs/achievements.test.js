@@ -405,14 +405,18 @@ describe('achievements', () => {
     it('title and text contain localized class info', () => {
       const user = generateUser();
       const basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
-      const gearTypes = ['healer', 'rogue', 'warrior', 'mage'];
+      const gearTypes = {
+        healer: 'Medic',
+        rogue: 'Infiltrator',
+        warrior: 'Enforcer',
+        mage: 'Technician',
+      };
 
-      gearTypes.forEach(gear => {
+      Object.entries(gearTypes).forEach(([gear, localizedName]) => {
         const gearAchiev = basicAchievs[`${gear}UltimateGear`];
-        const classNameRegex = new RegExp(gear.charAt(0).toUpperCase() + gear.slice(1));
 
-        expect(gearAchiev.title).to.match(classNameRegex);
-        expect(gearAchiev.text).to.match(classNameRegex);
+        expect(gearAchiev.title).to.include(localizedName);
+        expect(gearAchiev.text).to.include(localizedName);
       });
     });
   });

@@ -22,10 +22,14 @@
         >
           <div class="d-flex justify-content-center pb-5 mb-5">
             <div class="w-33 mr-5 mt-5">
-              <img
-                src="@/assets/images/home/home-main@3x.png"
-                width="357px"
+              <div
+                class="cyberhabits-hero-mark"
+                aria-hidden="true"
               >
+                <span class="hero-prompt">&gt; RUN DAILY_PROTOCOL</span>
+                <strong>CYBER<br><span>HABITS</span></strong>
+                <small>STATUS // READY</small>
+              </div>
               <h1>{{ $t('motivateYourself') }}</h1>
               <p class="section-main">
                 {{ $t('timeToGetThingsDone', {userCountInMillions}) }}
@@ -125,12 +129,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12">
-            <div
-              class="spacer svg-icon"
-              v-html="icons.spacer"
-            ></div>
-          </div>
+
         </div>
         <div
           id="gamify-life"
@@ -153,41 +152,23 @@
             </div>
             <div class="row">
               <div class="col-12 col-md-4">
-                <img
-                  class="track-habits"
-                  src="@/assets/images/home/track-habits@3x.png"
-                  width="354px"
-                  height="228px"
-                >
+                <div class="feature-glyph" aria-hidden="true">01</div>
                 <strong>{{ $t('trackYourGoals') }}</strong>
                 <p>{{ $t('trackYourGoalsDesc') }}</p>
               </div>
               <div class="col-12 col-md-4">
-                <img
-                  src="@/assets/images/home/earn-rewards@3x.png"
-                  width="316px"
-                  height="244px"
-                >
+                <div class="feature-glyph" aria-hidden="true">REP</div>
                 <strong>{{ $t('earnRewards') }}</strong>
                 <p>{{ $t('earnRewardsDesc') }}</p>
               </div>
               <div class="col-12 col-md-4">
-                <img
-                  src="@/assets/images/home/battle-monsters@3x.png"
-                  width="303px"
-                  height="244px"
-                >
+                <div class="feature-glyph" aria-hidden="true">//</div>
                 <strong>{{ $t('battleMonsters') }}</strong>
                 <p>{{ $t('battleMonstersDesc') }}</p>
               </div>
             </div>
           </div>
-          <div class="col-12">
-            <div
-              class="spacer svg-icon"
-              v-html="icons.spacer"
-            ></div>
-          </div>
+
         </div>
         <div
           id="use-cases"
@@ -201,40 +182,23 @@
             </div>
             <div class="row">
               <div class="col-12 col-sm-4">
-                <img
-                  src="@/assets/images/home/health-fitness@3x.png"
-                  width="300px"
-                  height="300px"
-                >
+                <div class="use-case-glyph" aria-hidden="true">+</div>
                 <strong>{{ $t('healthAndFitness') }}</strong>
                 <p>{{ $t('healthAndFitnessDesc') }}</p>
               </div>
               <div class="col-12 col-sm-4">
-                <img
-                  src="@/assets/images/home/school-work@3x.png"
-                  width="300px"
-                  height="300px"
-                >
+                <div class="use-case-glyph" aria-hidden="true">&gt;_</div>
                 <strong>{{ $t('schoolAndWork') }}</strong>
                 <p>{{ $t('schoolAndWorkDesc') }}</p>
               </div>
               <div class="col-12 col-sm-4">
-                <img
-                  src="@/assets/images/home/much-more@3x.png"
-                  width="300px"
-                  height="300px"
-                >
+                <div class="use-case-glyph" aria-hidden="true">∞</div>
                 <strong>{{ $t('muchmuchMore') }}</strong>
                 <p>{{ $t('muchmuchMoreDesc') }}</p>
               </div>
             </div>
           </div>
-          <div class="col-12">
-            <div
-              class="spacer svg-icon"
-              v-html="icons.spacer"
-            ></div>
-          </div>
+
           <div class="container-fluid">
             <div
               class="pixel-horizontal-2 svg-icon"
@@ -249,25 +213,16 @@
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-6 col-lg-6">
-                <div class="iphones"></div>
+                <div class="responsive-terminal" aria-hidden="true">
+                  <span>CYBERHABITS://WEB</span>
+                  <strong>ROUTINE ONLINE</strong>
+                  <i></i><i></i><i></i>
+                </div>
               </div>
               <div class="col-12 col-md-6 col-lg-6 text-column">
                 <h2>{{ $t('levelUpAnywhere') }}</h2>
                 <p>{{ $t('levelUpAnywhereDesc') }}</p>
-                <a
-                  class="app svg-icon"
-                  href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  v-html="icons.googlePlay"
-                ></a>
-                <a
-                  class="app svg-icon"
-                  href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  v-html="icons.iosAppStore"
-                ></a>
+
               </div>
             </div>
           </div>
@@ -296,49 +251,6 @@
                 >
                   {{ $t('joinToday') }}
                 </button>
-              </div>
-            </div>
-            <div class="row featured">
-              <div class="col-12 text-center">
-                <strong>{{ $t('featuredIn') }}</strong>
-              </div>
-            </div>
-          </div>
-          <div class="container-fluid featured">
-            <div class="row">
-              <div class="col-12 text-center">
-                <div
-                  class="lifehacker svg-icon"
-                  v-html="icons.lifehacker"
-                ></div>
-                <div
-                  class="thenewyorktimes svg-icon"
-                  v-html="icons.thenewyorktimes"
-                ></div>
-                <div
-                  class="makeuseof svg-icon"
-                  v-html="icons.makeuseof"
-                ></div>
-                <div
-                  class="forbes svg-icon"
-                  v-html="icons.forbes"
-                ></div>
-                <div
-                  class="cnet svg-icon"
-                  v-html="icons.cnet"
-                ></div>
-                <div
-                  class="kickstarter svg-icon"
-                  v-html="icons.kickstarter"
-                ></div>
-                <div
-                  class="fast-company svg-icon"
-                  v-html="icons.fastCompany"
-                ></div>
-                <div
-                  class="discover svg-icon"
-                  v-html="icons.discover"
-                ></div>
               </div>
             </div>
           </div>
@@ -736,24 +648,11 @@
 import notifications from '@/mixins/notifications';
 import accountCreation from '@/mixins/accountCreation';
 import PrivacyBanner from '@/components/header/banners/privacy';
-import googlePlay from '@/assets/images/home/google-play-badge.svg?raw';
-import iosAppStore from '@/assets/images/home/ios-app-store.svg?raw';
-import iphones from '@/assets/images/home/iphones.svg?raw';
-import spacer from '@/assets/images/home/spacer.svg?raw';
 import pixelHorizontal from '@/assets/images/home/pixel-horizontal.svg?raw';
 import pixelHorizontal2 from '@/assets/images/home/pixel-horizontal-2.svg?raw';
 import pixelHorizontal3 from '@/assets/images/home/pixel-horizontal-3.svg?raw';
-import facebookSquareIcon from '@/assets/svg/facebook-square.svg?raw';
 import googleIcon from '@/assets/svg/google.svg?raw';
 import appleIcon from '@/assets/svg/apple_black.svg?raw';
-import cnet from '@/assets/svg/cnet.svg?raw';
-import fastCompany from '@/assets/svg/fast-company.svg?raw';
-import discover from '@/assets/images/home/discover.svg?raw';
-import forbes from '@/assets/images/home/forbes.svg?raw';
-import kickstarter from '@/assets/images/home/kickstarter.svg?raw';
-import lifehacker from '@/assets/images/home/lifehacker.svg?raw';
-import makeuseof from '@/assets/images/home/make-use-of.svg?raw';
-import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg?raw';
 
 export default {
   components: {
@@ -763,24 +662,11 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        googlePlay,
-        iosAppStore,
-        iphones,
-        spacer,
         pixelHorizontal,
         pixelHorizontal2,
         pixelHorizontal3,
-        facebookIcon: facebookSquareIcon,
         googleIcon,
         appleIcon,
-        cnet,
-        fastCompany,
-        discover,
-        forbes,
-        kickstarter,
-        lifehacker,
-        makeuseof,
-        thenewyorktimes,
       }),
       userCountInMillions: 4,
     };

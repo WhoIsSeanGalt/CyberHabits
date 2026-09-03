@@ -14,6 +14,106 @@
   --cyber-text-muted: #{$cyber-text-muted};
 }
 
+.cyberhabits-wordmark {
+  align-items: center;
+  color: $cyber-text;
+  display: inline-flex;
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: 700;
+  gap: 10px;
+  letter-spacing: 1.5px;
+  line-height: 1;
+}
+
+.cyberhabits-monogram {
+  align-items: center;
+  background: $cyber-void;
+  border: 1px solid $cyber-cyan;
+  box-shadow: 3px 3px 0 $cyber-magenta;
+  color: $cyber-cyan;
+  display: inline-flex;
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 700;
+  height: 30px;
+  justify-content: center;
+  letter-spacing: -1px;
+  width: 30px;
+}
+
+.wordmark-accent { color: $cyber-cyan; }
+
+.cyberhabits-hero-mark {
+  background: linear-gradient(145deg, rgba($cyber-cyan, 0.08), rgba($cyber-magenta, 0.1));
+  border: 1px solid rgba($cyber-cyan, 0.5);
+  box-shadow: 8px 8px 0 rgba($cyber-magenta, 0.35);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 28px;
+  max-width: 357px;
+  min-height: 210px;
+  padding: 24px;
+}
+
+.cyberhabits-hero-mark .hero-prompt,
+.cyberhabits-hero-mark small {
+  color: $cyber-cyan;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+.cyberhabits-hero-mark strong {
+  color: $cyber-text;
+  font-family: monospace;
+  font-size: 48px;
+  line-height: 0.85;
+  margin: auto 0;
+}
+
+.cyberhabits-hero-mark strong span { color: $cyber-magenta; }
+
+.feature-glyph,
+.use-case-glyph {
+  align-items: center;
+  border: 1px solid rgba($cyber-cyan, 0.45);
+  color: $cyber-cyan;
+  display: flex;
+  font-family: monospace;
+  font-size: 40px;
+  font-weight: 700;
+  height: 160px;
+  justify-content: center;
+  margin: 0 auto 24px;
+  max-width: 300px;
+}
+
+.use-case-glyph {
+  border-color: rgba($cyber-magenta, 0.45);
+  border-radius: 50%;
+  color: $cyber-magenta;
+  height: 180px;
+  width: 180px;
+}
+
+.responsive-terminal {
+  border: 2px solid $cyber-cyan;
+  box-shadow: 12px 12px 0 rgba($cyber-magenta, 0.35);
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  margin: 40px auto;
+  max-width: 360px;
+  min-height: 220px;
+  padding: 24px;
+}
+
+.responsive-terminal span { color: $cyber-text-muted; }
+.responsive-terminal strong { color: $cyber-cyan; margin: 36px 0; }
+.responsive-terminal i { background: $cyber-magenta; height: 4px; margin: 5px 0; }
+.responsive-terminal i:nth-child(4) { width: 72%; }
+.responsive-terminal i:nth-child(5) { width: 44%; }
+
 ::selection {
   background: rgba($cyber-magenta, 0.4);
   color: $cyber-text;
