@@ -65,3 +65,16 @@ fork.
 
 - Source: https://github.com/HabitRPG/habitica
 - CyberHabits fork: https://github.com/WhoIsSeanGalt/CyberHabits
+
+## Optional Habitica supporter entitlements
+
+CyberHabits can verify an active subscription purchased directly from Habitica
+and use that status to unlock independently created CyberHabits assets. It does
+not process subscription payments. Linking is opt-in and disabled by default.
+
+Server operators must set `HABITICA_ENTITLEMENTS_ENABLED=true` and configure a
+valid `HABITICA_X_CLIENT` value that follows Habitica's API Usage Guidelines.
+Users provide their Habitica user ID and API token to the CyberHabits server;
+the token is encrypted at rest and is never returned by the entitlement API.
+Because Habitica API tokens grant broader account access than subscription
+status alone, deployments must protect the encryption key and use HTTPS.
