@@ -1,20 +1,19 @@
 <template>
-  <div class="d-content">
+  <tbody class="d-content">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
       <td class="settings-label">
-        {{ $t("pauseDailies") }}
+        Routine Pause
       </td>
       <td class="settings-value">
+        {{ user.preferences.sleep ? 'Active' : 'Inactive' }}
       </td>
       <td class="settings-button">
         <a
           class="edit-link"
           @click.prevent="openModal()"
-        >
-          {{ $t('learnMore') }}
-        </a>
+        >Manage</a>
       </td>
     </tr>
     <tr
@@ -22,67 +21,47 @@
       class="expanded"
     >
       <td colspan="3">
-        <div
-          v-once
-          class="dialog-title"
-        >
-          {{ $t("pauseDailies") }}
+        <div class="dialog-title">
+          Routine Pause
         </div>
-        <div
-          v-once
-          class="dialog-disclaimer"
-          v-html="$t('sleepDescription')"
-        >
+        <div class="dialog-disclaimer">
+          Use Routine Pause when illness, travel, or life makes your normal
+          schedule unavailable. This setting is separate from the Public Channel.
         </div>
-
         <ul>
-          <li v-once>
-            {{ $t('sleepBullet1') }}
-          </li>
-          <li v-once>
-            {{ $t('sleepBullet2') }}
-          </li>
-          <li v-once>
-            {{ $t('sleepBullet3') }}
-          </li>
+          <li>Missed Dailies will not damage your Health.</li>
+          <li>Task streaks and Habit counters will not reset.</li>
+          <li>Contract progress remains pending until you resume.</li>
         </ul>
-
         <div class="input-area">
           <save-cancel-buttons
-            :primary-button-label="user.preferences.sleep ? 'unpauseDailies' : 'pauseDailies'"
+            :primary-button-label="user.preferences.sleep ? 'Resume Routine' : 'Pause Routine'"
             @saveClicked="toggleSleep(); requestCloseModal();"
             @cancelClicked="requestCloseModal();"
           />
         </div>
       </td>
     </tr>
-  </div>
+  </tbody>
 </template>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
-.feedback {
-  color: $gray-50;
-}
+.dialog-title { color: $cyber-cyan; }
+.dialog-disclaimer { color: $gray-50; margin-bottom: 16px; }
 </style>
 
 <script>
 import { mapState } from '@/libs/store';
-
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 
 export default {
   components: { SaveCancelButtons },
   mixins: [InlineSettingMixin],
-  data () {
-    return {};
-  },
   computed: {
-    ...mapState({
-      user: 'user.data',
-    }),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     toggleSleep () {

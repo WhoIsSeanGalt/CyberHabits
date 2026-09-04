@@ -4,8 +4,6 @@
     <profileModal />
     <report-flag-modal />
     <report-member-modal />
-    <send-gift-modal />
-    <select-user-modal />
     <b-navbar
       id="habitica-menu"
       class="topbar navbar-inverse static-top"
@@ -17,7 +15,9 @@
         aria-label="CyberHabits"
       >
         <router-link to="/">
-          <div class="cyberhabits-monogram mr-3">CH</div>
+          <div class="cyberhabits-monogram mr-3">
+            CH
+          </div>
         </router-link>
         <div class="svg-icon"></div>
       </b-navbar-brand>
@@ -783,8 +783,6 @@ import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
 import reportMemberModal from '../members/reportMemberModal';
-import sendGiftModal from '@/components/payments/sendGiftModal';
-import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
 import reportBug from '@/mixins/reportBug.js';
@@ -797,8 +795,6 @@ export default {
     profileModal,
     reportFlagModal,
     reportMemberModal,
-    sendGiftModal,
-    selectUserModal,
     userDropdown,
   },
   mixins: [sync, reportBug, userStateMixin],

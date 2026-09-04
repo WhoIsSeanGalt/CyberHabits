@@ -7,9 +7,6 @@
     @dragover.prevent
   >
     <!-- <banned-account-modal /> -->
-    <payments-success-modal />
-    <sub-cancel-modal-confirm v-if="isUserLoaded" />
-    <sub-canceled-modal v-if="isUserLoaded" />
     <bug-report-modal v-if="isUserLoaded" />
     <bug-report-success-modal v-if="isUserLoaded" />
     <external-link-modal />
@@ -18,8 +15,6 @@
     <template v-if="isUserLoaded">
       <privacy-banner />
       <damage-paused-banner />
-      <gems-promo-banner />
-      <gift-promo-banner />
       <notifications-display />
       <app-menu />
       <div
@@ -118,8 +113,6 @@ import { loadProgressBar } from 'axios-progress-bar';
 import AppMenu from '@/components/header/menu';
 import AppHeader from '@/components/header/index';
 import DamagePausedBanner from '@/components/header/banners/damagePaused';
-import GemsPromoBanner from '@/components/header/banners/gemsPromo';
-import GiftPromoBanner from '@/components/header/banners/giftPromo';
 import PrivacyBanner from '@/components/header/banners/privacy';
 import AppFooter from '@/components/appFooter';
 import notificationsDisplay from '@/components/notifications';
@@ -127,20 +120,11 @@ import { mapState } from '@/libs/store';
 import BuyModal from '@/components/shops/buyModal.vue';
 import SelectMembersModal from '@/components/selectMembersModal.vue';
 import notifications from '@/mixins/notifications';
-import { setup as setupPayments } from '@/libs/payments';
-import paymentsSuccessModal from '@/components/payments/successModal';
-import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
-import subCanceledModal from '@/components/payments/canceledModal';
 import externalLinkModal from '@/components/externalLinkModal.vue';
 import purchaseConfirmModal from '@/components/shops/purchaseConfirmModal.vue';
 import deleteTaskConfirmModal from '@/components/tasks/deleteTaskConfirmModal.vue';
 
 import spellsMixin from '@/mixins/spells';
-import {
-  CONSTANTS,
-  getLocalSetting,
-  removeLocalSetting,
-} from '@/libs/userlocalManager';
 
 const bugReportModal = () => import('@/components/bugReportModal');
 const bugReportSuccessModal = () => import('@/components/bugReportSuccessModal');
@@ -152,15 +136,10 @@ export default {
     AppHeader,
     AppFooter,
     DamagePausedBanner,
-    GemsPromoBanner,
-    GiftPromoBanner,
     PrivacyBanner,
     notificationsDisplay,
     BuyModal,
     SelectMembersModal,
-    paymentsSuccessModal,
-    subCancelModalConfirm,
-    subCanceledModal,
     bugReportModal,
     bugReportSuccessModal,
     externalLinkModal,
@@ -276,23 +255,6 @@ export default {
           'preferences.timezoneOffset': browserTimezoneOffset,
         });
       }
-
-      let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-      if (appState) {
-        appState = JSON.parse(appState);
-        if (appState.paymentCompleted) {
-          removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-          if (appState.paymentType === 'groupPlan') {
-            this.$store.state.upgradingGroup = {};
-            this.$store.dispatch('guilds:getGroupPlans', true);
-          }
-          this.$root.$emit('habitica:payment-success', appState);
-        }
-      }
-      this.$nextTick(() => {
-        // Load external scripts after the app has been rendered
-        setupPayments();
-      });
     }).catch(err => {
       console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
     });
