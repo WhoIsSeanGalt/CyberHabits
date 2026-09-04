@@ -18,8 +18,7 @@
       id="bottom-background"
       class="bg-purple-300"
     >
-      <div class="seamless_mountains_demo_repeat"></div>
-      <div class="midground_foreground_extended2"></div>
+      <div class="cyber-grid-horizon"></div>
     </div>
     <app-footer
       v-if="showContentWrap"
@@ -34,8 +33,7 @@
         v-if="!loginFlow"
         id="bottom-background"
       >
-        <div class="seamless_mountains_demo_repeat"></div>
-        <div class="midground_foreground_extended2"></div>
+        <div class="cyber-grid-horizon"></div>
       </div>
     </div>
   </div>
@@ -220,23 +218,18 @@
   #bottom-background {
     position: relative;
 
-    .seamless_mountains_demo_repeat {
-      background-image: url('@/assets/images/auth/seamless_mountains_demo.png');
-      background-repeat: repeat-x;
+    .cyber-grid-horizon {
+      background-image:
+        linear-gradient(rgba($cyber-cyan, .15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba($cyber-cyan, .15) 1px, transparent 1px);
+      background-size: 32px 32px;
       width: 100%;
-      height: 300px;
+      height: 180px;
       position: absolute;
       z-index: 0;
       bottom: 0;
-    }
-
-    .midground_foreground_extended2 {
-      background-image: url('@/assets/images/auth/midground_foreground_extended2.png');
-      position: relative;
-      width: 1500px;
-      max-width: 100%;
-      height: 150px;
-      margin: 0 auto;
+      transform: perspective(180px) rotateX(55deg);
+      transform-origin: bottom;
     }
   }
 </style>

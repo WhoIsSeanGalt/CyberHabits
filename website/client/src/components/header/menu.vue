@@ -396,19 +396,6 @@
             ></div>
             <span>{{ userHourglasses }}</span>
           </div>
-          <div
-            class="item-with-icon gem"
-            @click.prevent="showBuyGemsModal()"
-          >
-            <a
-              v-b-tooltip.hover.bottom="$t('gems')"
-              class="top-menu-icon svg-icon gem mr-2"
-              :aria-label="$t('gems')"
-              href="#buy-gems"
-              v-html="icons.gem"
-            ></a>
-            <span>{{ userGems }}</span>
-          </div>
           <div class="item-with-icon gold">
             <div
               v-b-tooltip.hover.bottom="$t('gold')"
@@ -784,10 +771,9 @@ body.modal-open #habitica-menu {
 </style>
 
 <script>
-import { mapState, mapGetters } from '@/libs/store';
+import { mapState } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
 
-import gemIcon from '@/assets/svg/gem.svg?raw';
 import goldIcon from '@/assets/svg/gold.svg?raw';
 import syncIcon from '@/assets/svg/sync.svg?raw';
 import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
@@ -822,7 +808,6 @@ export default {
       menuIsOpen: false,
       partyLeaderId: null,
       icons: Object.freeze({
-        gem: gemIcon,
         gold: goldIcon,
         hourglasses: svgHourglasses,
         sync: syncIcon,
@@ -831,9 +816,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      userGems: 'user:gems',
-    }),
     ...mapState({
       user: 'user.data',
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
@@ -888,9 +870,6 @@ export default {
     },
     openPartyModal () {
       this.$root.$emit('bv::show::modal', 'create-party-modal');
-    },
-    showBuyGemsModal () {
-      this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
     },
     dropdownDesktop (hover) {
       if (this.isDesktop() && hover.target.classList.contains('droppable')) {

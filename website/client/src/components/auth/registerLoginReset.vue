@@ -13,11 +13,10 @@
     >
       <div class="text-center">
         <div>
-          <a
-            href="/static/home"
-            class="svg-icon svg habitica-logo mx-auto mb-4"
-            v-html="icons.habiticaIcon"
-          ></a>
+          <a href="/static/home" class="cyberhabits-wordmark mb-4">
+            <span class="cyberhabits-monogram">CH</span>
+            <span>CYBER<span class="wordmark-accent">HABITS</span></span>
+          </a>
         </div>
       </div>
       <div class="form-group">
@@ -225,11 +224,10 @@
     >
       <div>
         <div>
-          <a
-            href="/static/home"
-            class="svg-icon habitica-logo mx-auto mb-4"
-            v-html="icons.habiticaIcon"
-          ></a>
+          <a href="/static/home" class="cyberhabits-wordmark mb-4">
+            <span class="cyberhabits-monogram">CH</span>
+            <span>CYBER<span class="wordmark-accent">HABITS</span></span>
+          </a>
         </div>
         <div class="header">
           <h2
@@ -293,11 +291,10 @@
     >
       <div class="text-center">
         <div>
-          <a
-            href="/static/home"
-            class="svg-icon habitica-logo mx-auto mb-4"
-            v-html="icons.habiticaIcon"
-          ></a>
+          <a href="/static/home" class="cyberhabits-wordmark mb-4">
+            <span class="cyberhabits-monogram">CH</span>
+            <span>CYBER<span class="wordmark-accent">HABITS</span></span>
+          </a>
         </div>
         <div class="header">
           <h2>{{ $t('passwordResetPage') }}</h2>
@@ -381,9 +378,11 @@
   }
 
   .form-wrapper {
-    background-color: $purple-200;
-    background: $purple-200; /* For browsers that do not support gradients */
-    background: linear-gradient(to bottom, #4f2a93, #6133b4); /* Standard syntax */
+    background-color: $cyber-void;
+    background:
+      radial-gradient(circle at 20% 15%, rgba($cyber-magenta, .18), transparent 34%),
+      radial-gradient(circle at 80% 25%, rgba($cyber-cyan, .14), transparent 32%),
+      $cyber-void;
   }
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -420,10 +419,6 @@
       p {
         line-height: 1.714;
       }
-    }
-
-    .habitica-logo {
-      width: 145px;
     }
 
     label {
@@ -545,7 +540,6 @@ import notifications from '@/mixins/notifications';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 import accountCreation from '@/mixins/accountCreation';
 import exclamation from '@/assets/svg/exclamation.svg?raw';
-import habiticaIcon from '@/assets/svg/habitica-logo.svg?raw';
 import googleIcon from '@/assets/svg/google.svg?raw';
 import appleIcon from '@/assets/svg/apple_black.svg?raw';
 
@@ -566,7 +560,6 @@ export default {
 
     data.icons = Object.freeze({
       exclamation,
-      habiticaIcon,
       googleIcon,
       appleIcon,
     });
