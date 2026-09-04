@@ -408,7 +408,7 @@ describe('achievements', () => {
       const gearTypes = {
         healer: 'Engineer',
         rogue: 'Assassin',
-        warrior: 'Enforcer',
+        warrior: 'Brawler',
         mage: 'Runner',
       };
 

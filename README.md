@@ -46,7 +46,7 @@ names:
 - Mage → **Runner**
 - Rogue → **Assassin**
 - Healer → **Engineer**
-- Warrior → **Enforcer**
+- Warrior → **Brawler**
 - Tavern chat → **The Sprawl**
 - Pause Damage / sleep state → **Hibernate**
 

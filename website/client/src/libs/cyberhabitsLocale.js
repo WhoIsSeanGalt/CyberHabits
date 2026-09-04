@@ -35,7 +35,7 @@ const cyberhabitsLocale = {
   tavernChat: 'The Sprawl',
   wizard: 'Runner',
   mage: 'Runner',
-  warrior: 'Enforcer',
+  warrior: 'Brawler',
   rogue: 'Assassin',
   healer: 'Engineer',
   xp: 'REP',
