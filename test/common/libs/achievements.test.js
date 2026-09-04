@@ -406,10 +406,10 @@ describe('achievements', () => {
       const user = generateUser();
       const basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
       const gearTypes = {
-        healer: 'Medic',
-        rogue: 'Infiltrator',
+        healer: 'Engineer',
+        rogue: 'Assassin',
         warrior: 'Enforcer',
-        mage: 'Technician',
+        mage: 'Runner',
       };
 
       Object.entries(gearTypes).forEach(([gear, localizedName]) => {

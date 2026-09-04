@@ -43,6 +43,10 @@ names:
 - Pets → **Bots**
 - Mounts → **Rides**
 - Skills / Spells → **Hacks**
+- Mage → **Runner**
+- Rogue → **Assassin**
+- Healer → **Engineer**
+- Warrior → **Enforcer**
 - Tavern chat → **The Sprawl**
 - Pause Damage / sleep state → **Hibernate**
 
