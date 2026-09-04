@@ -20,7 +20,10 @@ let isUserLoggedIn = false;
 // eg, -240 - this will be converted on server as (offset/60)
 const browserTimezoneUtcOffset = moment().utcOffset();
 
-axios.defaults.headers.common['x-client'] = 'habitica-web';
+axios.defaults.baseURL = 'https://habitica.com';
+if (import.meta.env.VITE_HABITICA_X_CLIENT) {
+  axios.defaults.headers.common['x-client'] = import.meta.env.VITE_HABITICA_X_CLIENT;
+}
 
 let AUTH_SETTINGS = window.localStorage.getItem(LOCALSTORAGE_AUTH_KEY);
 if (AUTH_SETTINGS) {
@@ -51,7 +54,7 @@ export default function clientStore () {
     getters,
     state: {
       serverAppVersion: null,
-      title: 'Habitica',
+      title: 'CyberHabits',
       isUserLoggedIn,
       // Means the user and the user's tasks are ready
       // @TODO use store.user.loaded since it's an async resource?

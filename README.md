@@ -2,81 +2,106 @@
 
 **Upgrade your routine.**
 
-CyberHabits is an open-source habit and productivity RPG with a cyber-noir
-identity. It is an independent fork of
-[Habitica](https://github.com/HabitRPG/habitica), retaining its task engine
-while progressively replacing the fantasy presentation, branding, writing,
-and artwork.
+CyberHabits is a static, alternative web client for
+[Habitica](https://habitica.com). Habitica remains the source of truth for user
+accounts, tasks, progress, social groups, and subscriptions; CyberHabits
+provides an independent cyber-noir interface.
 
-## Project status
+CyberHabits is not affiliated with or endorsed by Habitica.
 
-The project is in its first rebranding phase on the `cyberpunk-mvp` branch.
-The initial milestone covers:
+## Architecture
 
-- independent CyberHabits branding and metadata;
-- a reusable neon cyber-noir design palette;
-- the core task dashboard and onboarding experience;
-- an asset and trademark separation audit.
+CyberHabits has no application server, user database, payment processor, or
+subscription ledger. The browser communicates directly with Habitica's public
+API over HTTPS.
 
-Working vocabulary: Gold becomes **Credits**, Experience becomes
-**Reputation (REP)**, Mana becomes **Charge**, Quests become **Contracts**, and
-Parties become **Crews**. Inventory becomes the **Stash**, Equipment becomes
-**Chrome**, Pets become **Bots**, Mounts become **Rides**, and Skills become
-**Hacks**. These are presentation labels; inherited internal API field names
-remain unchanged for compatibility.
+Users connect with the User ID and API Token available from Habitica's API
+settings. Those credentials are stored only in that browser's local storage and
+are attached directly to requests sent to `https://habitica.com`. Logging out
+removes local credentials.
 
-Inherited fantasy assets remain during development and must not be treated as
-final CyberHabits artwork.
+Every API request uses the CyberHabits `X-Client` identifier. Deployments and
+contributors must follow Habitica's API Usage Guidelines, including rate limits
+and delays for background automation. CyberHabits does not perform background
+automation in its baseline client.
+
+Account registration, password recovery, account deletion, purchases, and
+subscription management stay on Habitica's official website and apps.
+
+## Terminology
+
+CyberHabits changes presentation labels without changing Habitica API field
+names:
+
+- Gold → **Credits**
+- Experience / XP → **Reputation / REP**
+- Mana / MP → **Charge / CHG**
+- Quests → **Contracts**
+- Parties → **Crews**
+- Inventory → **Stash**
+- Equipment / Gear → **Chrome**
+- Pets → **Bots**
+- Mounts → **Rides**
+- Skills / Spells → **Hacks**
+- Tavern chat → **Public Channel**
+- Pause Damage / sleep state → **Routine Pause**
+
+## Current status
+
+The `cyberpunk-mvp` branch is migrating the inherited interface into a static
+Habitica-backed client. Current work covers:
+
+- direct Habitica API authentication and data access;
+- independent CyberHabits branding and cyber-noir styling;
+- core task dashboard and navigation terminology;
+- removal of duplicate server, payment, and entitlement behavior from the
+  runtime architecture;
+- replacement of inherited fantasy artwork with original assets.
+
+Some inherited fantasy content and unused server source remain in the Git
+history and working tree during migration. They are not part of the intended
+CyberHabits runtime and must not be treated as final CyberHabits assets.
 
 ## Development
 
-CyberHabits currently follows the upstream development requirements:
+Requirements:
 
 - Node.js 20
 - npm 10
-- MongoDB for server and integration testing
 
-Install dependencies and run the client:
+Install and run the static client:
 
 ```sh
+cd website/client
+cp .env.example .env.local
+# Set VITE_HABITICA_X_CLIENT to YOUR-HABITICA-USER-ID-CyberHabits
 npm install
-npm run client:dev
+npm run serve
 ```
 
-Run checks:
+Build and check it:
 
 ```sh
+cd website/client
 npm run lint-no-fix
-npm run test:common
-npm run client:unit
-npm run client:build
+npm run test:unit
+npm run build
 ```
+
+No local MongoDB, Redis, payment credentials, email provider, or CyberHabits
+backend is required for the client.
 
 ## Licensing and attribution
 
-CyberHabits is derived from Habitica. Code remains available under GNU GPL
-version 3. Inherited content and assets have separate terms, including
+CyberHabits is derived from Habitica. Inherited code remains available under
+GNU GPL version 3. Inherited content and assets have separate terms, including
 CC BY-SA 3.0 and CC BY-NC-SA 3.0; see [LICENSE](LICENSE) for the upstream
 license notice.
 
 New CyberHabits-specific artwork and content will be identified separately as
-it is introduced. Habitica is not affiliated with or responsible for this
-fork.
+it is introduced.
 
 ## Upstream
 
-- Source: https://github.com/HabitRPG/habitica
-- CyberHabits fork: https://github.com/WhoIsSeanGalt/CyberHabits
-
-## Optional Habitica supporter entitlements
-
-CyberHabits can verify an active subscription purchased directly from Habitica
-and use that status to unlock independently created CyberHabits assets. It does
-not process subscription payments. Linking is opt-in and disabled by default.
-
-Server operators must set `HABITICA_ENTITLEMENTS_ENABLED=true` and configure a
-valid `HABITICA_X_CLIENT` value that follows Habitica's API Usage Guidelines.
-Users provide their Habitica user ID and API token to the CyberHabits server;
-the token is encrypted at rest and is never returned by the entitlement API.
-Because Habitica API tokens grant broader account access than subscription
-status alone, deployments must protect the encryption key and use HTTPS.
+- Habitica source: https://github.com/HabitRPG/habitica
+- CyberHabits: https://github.com/WhoIsSeanGalt/CyberHabits

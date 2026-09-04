@@ -207,6 +207,8 @@
 </style>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/colors.scss';
+
   #bottom-wrap.purple-4 {
     background-color: #271B3D;
   }

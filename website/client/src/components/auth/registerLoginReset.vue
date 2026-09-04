@@ -1,725 +1,204 @@
 <template>
   <div class="form-wrapper">
-    <div id="top-background">
-      <div class="seamless_stars_varied_opacity_repeat"></div>
-    </div>
     <privacy-banner
       class="privacy-banner"
     />
     <form
-      v-if="!forgotPassword && !resetPasswordSetNewOne"
       id="login-form"
-      @submit.prevent.stop="handleSubmit"
+      @submit.prevent.stop="login"
     >
-      <div class="text-center">
-        <div>
-          <a href="/static/home" class="cyberhabits-wordmark mb-4">
-            <span class="cyberhabits-monogram">CH</span>
-            <span>CYBER<span class="wordmark-accent">HABITS</span></span>
-          </a>
-        </div>
-      </div>
-      <div class="form-group">
-        <div>
-          <div
-            class="btn btn-secondary social-button"
-            @click="proceed('google')"
-          >
-            <div
-              class="svg-icon social-icon"
-              v-html="icons.googleIcon"
-            ></div>
-            <div
-              class="text"
-            >
-              {{ $t('signUpWithSocial', {social: 'Google'}) }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div>
-          <div
-            class="btn btn-secondary social-button"
-            @click="proceed('apple')"
-          >
-            <div
-              class="svg-icon social-icon"
-              v-html="icons.appleIcon"
-            ></div>
-            <div
-              class="text"
-            >
-              {{ $t('signUpWithSocial', {social: 'Apple'}) }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="strike mb-3">
-        <span>{{ $t('or') }}</span>
-      </div>
-      <div
-        v-if="!registering"
-        class="form-group"
-        :class="{ 'mb-2': usernameIssues.length > 0 }"
+      <a
+        href="/static/home"
+        class="cyberhabits-wordmark mb-4"
       >
-        <label
-          v-once
-          for="usernameInput"
-        >{{ $t('emailOrUsername') }}</label>
+        <span class="cyberhabits-monogram">CH</span>
+        <span>CYBER<span class="wordmark-accent">HABITS</span></span>
+      </a>
+
+      <div class="header">
+        <h1>Connect your Habitica account</h1>
+        <p>
+          CyberHabits is an alternative interface for Habitica. Your tasks,
+          progress, Crew, and subscription stay on Habitica.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="habiticaUserId">Habitica User ID</label>
         <input
-          id="usernameInput"
-          v-model="username"
+          id="habiticaUserId"
+          v-model.trim="habiticaUserId"
           class="form-control dark"
           type="text"
-          :placeholder="$t('emailOrUsername')"
-          :class="{
-            'input-valid': usernameValid,
-            'input-invalid': usernameInvalid,
-          }"
+          autocomplete="username"
+          inputmode="text"
+          placeholder="00000000-0000-0000-0000-000000000000"
+          required
         >
       </div>
-      <div
-        v-for="issue in usernameIssues"
-        :key="issue"
-        class="input-error"
-      >
-        {{ issue }}
-      </div>
-      <div
-        v-if="registering"
-        class="form-group"
-      >
-        <label
-          v-once
-          for="emailInput"
-        >{{ $t('email') }}</label>
-        <input
-          id="emailInput"
-          v-model="email"
-          class="form-control dark"
-          type="email"
-          :placeholder="$t('emailPlaceholder')"
-          :class="{
-            'input-invalid input-with-error': emailError,
-            'input-valid': emailValid,
-          }"
-        >
-        <div
-          v-if="emailError"
-          class="input-error"
-        >
-          {{ emailError }}
-        </div>
-      </div>
-      <div
-        class="form-group"
-        :class="{ 'mt-2': usernameIssues.length > 0 }"
-      >
-        <label
-          v-once
-          for="passwordInput"
-        >{{ $t('password') }}</label>
-        <a
-          v-if="!registering"
-          v-once
-          class="float-right forgot-password"
-          @click="forgotPassword = true"
-        >{{ $t('forgotPassword') }}</a>
-        <input
-          id="passwordInput"
-          v-model="password"
-          class="form-control dark"
-          type="password"
-          :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
-          :class="{
-            'input-invalid input-with-error': passwordInvalid,
-            'input-valid': passwordValid
-          }"
-        >
-        <div
-          v-if="passwordInvalid && registering"
-          class="input-error"
-        >
-          {{ $t('minPasswordLength') }}
-        </div>
-        <div
-          v-if="passwordInvalid && !registering"
-          class="input-error"
-        >
-          {{ $t('minPasswordLengthLogin') }}
-        </div>
-      </div>
-      <div
-        v-if="registering"
-        class="form-group mb-4"
-      >
-        <label
-          v-once
-          for="confirmPasswordInput"
-        >{{ $t('confirmPassword') }}</label>
-        <input
-          id="confirmPasswordInput"
-          v-model="passwordConfirm"
-          class="form-control dark input-with-error"
-          type="password"
-          :placeholder="$t('confirmPasswordPlaceholder')"
-          :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
-        >
-        <div
-          v-if="passwordConfirmInvalid"
-          class="input-error"
-        >
-          {{ $t('passwordConfirmationMatch') }}
-        </div>
-      </div>
-      <div class="text-center">
-        <button
-          v-if="registering"
-          id="continue-button"
-          type="submit"
-          class="btn btn-info w-100 mb-4"
-          :disabled="!(emailValid && passwordValid && passwordConfirmValid)"
-        >
-          {{ $t('continue') }}
-        </button>
-        <button
-          v-if="!registering"
-          type="submit"
-          class="btn btn-info w-100 mb-4"
-          :disabled="!usernameValid || !passwordValid"
-        >
-          {{ $t('login') }}
-        </button>
-        <div>
-          <router-link
-            v-if="registering"
-            :to="{name: 'login'}"
-            exact="exact"
-          >
-            <a
-              v-once
-              class="white"
-              v-html="$t('alreadyHaveAccountLogin')"
-            ></a>
-          </router-link>
-          <router-link
-            v-if="!registering"
-            :to="{name: 'register'}"
-            exact="exact"
-          >
-            <a
-              v-once
-              class="white"
-              v-html="$t('dontHaveAccountSignup')"
-            ></a>
-          </router-link>
-        </div>
-      </div>
-    </form>
-    <form
-      v-if="forgotPassword"
-      id="forgot-form"
-      @submit.prevent="handleSubmit"
-    >
-      <div>
-        <div>
-          <a href="/static/home" class="cyberhabits-wordmark mb-4">
-            <span class="cyberhabits-monogram">CH</span>
-            <span>CYBER<span class="wordmark-accent">HABITS</span></span>
-          </a>
-        </div>
-        <div class="header">
-          <h2
-            v-once
-            class="text-center"
-          >
-            {{ $t('emailNewPass') }}
-          </h2>
-          <p
-            v-once
-            class="purple-600 text-left"
-          >
-            {{ $t('forgotPasswordSteps') }}
-          </p>
-        </div>
-        <div
-          class="form-group"
-          :class="{
-            'mb-2': usernameIssues.length > 0,
-            'mb-4': usernameIssues.length === 0,
-          }"
-        >
-          <label
-            v-once
-            for="usernameInput"
-          >{{ $t('emailOrUsername') }}</label>
-          <input
-            id="usernameInput"
-            v-model="username"
-            class="form-control dark"
-            type="text"
-            :placeholder="$t('emailUsernamePlaceholder')"
-            :class="{
-              'input-valid': usernameValid,
-              'input-invalid': usernameInvalid,
-            }"
-          >
-        </div>
-        <div
-          v-for="issue in usernameIssues"
-          :key="issue"
-          class="input-error mb-2"
-        >
-          {{ issue }}
-        </div>
-        <div class="text-center">
-          <button
-            class="btn btn-info w-100"
-            :disabled="!username || usernameIssues.length > 0"
-            @click="forgotPasswordLink()"
-          >
-            {{ $t('sendLink') }}
-          </button>
-        </div>
-      </div>
-    </form>
-    <form
-      v-if="resetPasswordSetNewOne"
-      id="reset-password-set-new-one-form"
-      @submit.prevent="handleSubmit"
-    >
-      <div class="text-center">
-        <div>
-          <a href="/static/home" class="cyberhabits-wordmark mb-4">
-            <span class="cyberhabits-monogram">CH</span>
-            <span>CYBER<span class="wordmark-accent">HABITS</span></span>
-          </a>
-        </div>
-        <div class="header">
-          <h2>{{ $t('passwordResetPage') }}</h2>
-        </div>
-      </div>
+
       <div class="form-group">
-        <label
-          v-once
-          for="passwordInput"
-        >{{ $t('newPass') }}</label>
+        <label for="habiticaApiToken">Habitica API Token</label>
         <input
-          id="passwordInput"
-          v-model="password"
-          class="form-control dark input-with-error"
+          id="habiticaApiToken"
+          v-model.trim="habiticaApiToken"
+          class="form-control dark"
           type="password"
-          :placeholder="$t('password')"
-          :class="{'input-invalid': passwordInvalid, 'input-valid': passwordValid}"
+          autocomplete="current-password"
+          required
         >
-        <div
-          v-if="passwordInvalid"
-          class="input-error"
-        >
-          {{ $t('minPasswordLength') }}
-        </div>
       </div>
-      <div class="form-group mb-4">
-        <label
-          v-once
-          for="confirmPasswordInput"
-        >{{ $t('confirmPass') }}</label>
-        <input
-          id="confirmPasswordInput"
-          v-model="passwordConfirm"
-          class="form-control dark input-with-error"
-          type="password"
-          :placeholder="$t('confirmPasswordPlaceholder')"
-          :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
-        >
-        <div
-          v-if="passwordConfirmInvalid"
-          class="input-error"
-        >
-          {{ $t('passwordConfirmationMatch') }}
-        </div>
+
+      <p class="security-note">
+        Credentials stay in this browser and are sent directly to Habitica over
+        HTTPS. CyberHabits has no user database or authentication server.
+      </p>
+
+      <div
+        v-if="errorMessage"
+        class="input-error"
+        role="alert"
+      >
+        {{ errorMessage }}
       </div>
-      <div class="text-center">
-        <button
-          class="btn btn-info w-100"
-          :disabled="!password || !passwordConfirm
-            || password !== passwordConfirm || resetPasswordSetNewOneData.hasError"
-          @click="resetPasswordSetNewOneLink()"
-        >
-          {{ $t('setNewPass') }}
-        </button>
-      </div>
+
+      <button
+        type="submit"
+        class="btn btn-info w-100 mb-3"
+        :disabled="connecting || !habiticaUserId || !habiticaApiToken"
+      >
+        {{ connecting ? 'Connecting…' : 'Connect to Habitica' }}
+      </button>
+
+      <a
+        class="credential-link"
+        href="https://habitica.com/user/settings/api"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Find your User ID and API Token on Habitica</a>
+      <a
+        class="credential-link"
+        href="https://habitica.com/register"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Create an account on Habitica</a>
     </form>
+    <div
+      id="cyber-grid-horizon"
+      aria-hidden="true"
+    ></div>
   </div>
 </template>
 
-<style>
-  html, body, #app {
-    min-height: 100%;
-  }
-
-  small a, small a:hover {
-    color: #fff;
-    text-decoration: underline;
-  }
-</style>
-
 <style lang="scss" scoped>
-  @import '@/assets/scss/colors.scss';
-  @import '@/assets/scss/forms.scss';
-  @import '@/assets/scss/privacy.scss';
+@import '@/assets/scss/colors.scss';
+@import '@/assets/scss/forms.scss';
+@import '@/assets/scss/privacy.scss';
 
-  @media only screen and (max-width: 768px) {
-    .form-group {
-      padding-left: .5em;
-      padding-right: .5em;
-    }
+.form-wrapper {
+  background:
+    radial-gradient(circle at 20% 15%, rgba($cyber-magenta, .18), transparent 34%),
+    radial-gradient(circle at 80% 25%, rgba($cyber-cyan, .14), transparent 32%),
+    $cyber-void;
+  color: $cyber-text;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+#login-form {
+  margin: 0 auto;
+  max-width: 480px;
+  padding: 72px 24px 120px;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  margin: 36px 0 28px;
+
+  h1 { color: $cyber-text; font-size: 28px; }
+  p { color: $cyber-text-muted; line-height: 1.6; }
+}
+
+label { color: $cyber-text; font-weight: 700; }
+
+.form-control.dark {
+  background: $cyber-panel;
+  border: 1px solid rgba($cyber-cyan, .35);
+  color: $cyber-text;
+
+  &:focus {
+    border-color: $cyber-cyan;
+    box-shadow: 0 0 0 2px rgba($cyber-cyan, .15);
   }
+}
 
-  .form-wrapper {
-    background-color: $cyber-void;
-    background:
-      radial-gradient(circle at 20% 15%, rgba($cyber-magenta, .18), transparent 34%),
-      radial-gradient(circle at 80% 25%, rgba($cyber-cyan, .14), transparent 32%),
-      $cyber-void;
-  }
+.security-note {
+  border-left: 2px solid $cyber-cyan;
+  color: $cyber-text-muted;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 24px 0;
+  padding-left: 12px;
+}
 
-  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: $purple-500;
-  }
-  ::-moz-placeholder { /* Firefox 19+ */
-    color: $purple-500;
-  }
-  :-ms-input-placeholder { /* IE 10+ */
-    color: $purple-500;
-  }
-  :-moz-placeholder { /* Firefox 18- */
-    color: $purple-500;
-  }
-  ::placeholder { //  Standard browsers
-    color: $purple-500;
-  }
+.input-error { color: $cyber-danger; margin-bottom: 16px; }
 
-  #login-form, #forgot-form, #reset-password-set-new-one-form {
-    margin: 0 auto;
-    width: 448px;
-    height: 700px;
-    padding-top: 5em;
-    padding-bottom: 4em;
-    position: relative;
-    z-index: 1;
+.credential-link {
+  color: $cyber-cyan;
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}
 
-    .header {
-      h2 {
-        font-size: 24px;
-        color: $white;
-      }
-
-      p {
-        line-height: 1.714;
-      }
-    }
-
-    label {
-      color: $white;
-      font-weight: bold;
-      line-height: 1.714;
-    }
-
-    .input-with-error.input-invalid {
-      margin-bottom: 0.5em;
-    }
-
-    #confirmPasswordInput + .input-error {
-      margin-bottom: 2em;
-    }
-
-    .form-text {
-      font-size: 14px;
-      color: $white;
-    }
-
-    .social-button {
-      width: 100%;
-      height: 100%;
-      white-space: inherit;
-      text-align: center;
-
-      .text {
-        display: inline-block;
-      }
-    }
-
-    .social-icon {
-      margin-left: 1em;
-      margin-right: 1em;
-      width: 18px;
-      height: 18px;
-      display: inline-block;
-      vertical-align: top;
-      margin-top: .1em;
-    }
-  }
-
-  #top-background {
-    .seamless_stars_varied_opacity_repeat {
-      background-image: url('@/assets/images/auth/seamless_stars_varied_opacity.png');
-      background-repeat: repeat-x;
-      position: absolute;
-      height: 500px;
-      width: 100%;
-    }
-  }
-
-  .forgot-password {
-    color: #bda8ff !important;
-  }
-
-  .warning-banner {
-    color: $white;
-    background-color: $maroon-100;
-    height: 2.5rem;
-    width: 100%;
-  }
-
-  .warning-box {
-    font-weight: bold;
-    width: 1rem;
-    height: 1rem;
-    border: 2px solid;
-    border-radius: 2px;
-  }
-
-  .exclamation {
-    width: 2px;
-  }
-
-  .strike {
-    display: block;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .strike > span {
-    font-weight: 700;
-    position: relative;
-    display: inline-block;
-    line-height: 1.714;
-    color: #fff;
-  }
-
-  .strike > span:before,
-  .strike > span:after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 9999px;
-    height: 1px;
-    background: $purple-400;
-  }
-
-  .strike > span:before {
-    right: 100%;
-    margin-right: 15px;
-  }
-
-  .strike > span:after {
-    left: 100%;
-    margin-left: 15px;
-  }
+#cyber-grid-horizon {
+  background-image:
+    linear-gradient(rgba($cyber-cyan, .13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($cyber-cyan, .13) 1px, transparent 1px);
+  background-size: 32px 32px;
+  bottom: -80px;
+  height: 260px;
+  position: absolute;
+  transform: perspective(220px) rotateX(55deg);
+  transform-origin: bottom;
+  width: 100%;
+}
 </style>
 
 <script>
-import axios from 'axios';
-import debounce from 'lodash/debounce';
-import isEmail from 'validator/es/lib/isEmail';
 import PrivacyBanner from '@/components/header/banners/privacy';
-import notifications from '@/mixins/notifications';
-import sanitizeRedirect from '@/mixins/sanitizeRedirect';
-import accountCreation from '@/mixins/accountCreation';
-import exclamation from '@/assets/svg/exclamation.svg?raw';
-import googleIcon from '@/assets/svg/google.svg?raw';
-import appleIcon from '@/assets/svg/apple_black.svg?raw';
 
 export default {
-  components: {
-    PrivacyBanner,
-  },
-  mixins: [accountCreation, notifications, sanitizeRedirect],
+  components: { PrivacyBanner },
   data () {
-    const data = {
-      forgotPassword: false,
-      resetPasswordSetNewOneData: {
-        hasError: null,
-        code: null,
-      },
-      usernameIssues: [],
+    return {
+      connecting: false,
+      errorMessage: '',
+      habiticaApiToken: '',
+      habiticaUserId: '',
     };
-
-    data.icons = Object.freeze({
-      exclamation,
-      googleIcon,
-      appleIcon,
-    });
-
-    return data;
-  },
-  computed: {
-    registering () {
-      if (this.$route.path.startsWith('/register')) {
-        return true;
-      }
-      return false;
-    },
-    resetPasswordSetNewOne () {
-      if (this.$route.path.startsWith('/reset-password')) {
-        return true;
-      }
-      return false;
-    },
-    usernameValid () {
-      if (this.username.length < 1) return false;
-      return this.usernameIssues.length === 0;
-    },
-    usernameInvalid () {
-      if (this.username.length < 1) return false;
-      return !this.usernameValid;
-    },
-  },
-  watch: {
-    $route: {
-      handler () {
-        this.setTitle();
-        if (this.resetPasswordSetNewOne) {
-          const { query } = this.$route;
-          const { code } = query;
-          const hasError = query.hasError === 'true';
-          if (hasError) {
-            window.alert(query.message); // eslint-disable-line no-alert
-            this.$router.push({ name: 'login' });
-            return;
-          }
-
-          if (!code) {
-            window.alert(this.$t('invalidPasswordResetCode')); // eslint-disable-line no-alert
-            this.$router.push({ name: 'login' });
-            return;
-          }
-          this.resetPasswordSetNewOneData.code = query.code;
-          this.resetPasswordSetNewOneData.hasError = hasError;
-        }
-      },
-      immediate: true,
-    },
-    username () {
-      this.validateUsername(this.username);
-    },
   },
   mounted () {
-    this.forgotPassword = this.$route.path.startsWith('/forgot-password');
-    if (this.forgotPassword) {
-      if (this.$route.query.email) {
-        this.username = this.$route.query.email;
-      }
-    }
+    this.$store.dispatch('common:setTitle', { section: 'Connect' });
   },
   methods: {
     async login () {
-      await this.$store.dispatch('auth:login', {
-        username: this.username,
-        password: this.password,
-      });
-
-      const redirectTo = this.sanitizeRedirect(this.$route.query.redirectTo);
-
-      window.location.href = redirectTo;
+      this.connecting = true;
+      this.errorMessage = '';
+      try {
+        await this.$store.dispatch('auth:login', {
+          username: this.habiticaUserId,
+          password: this.habiticaApiToken,
+        });
+        const redirectTo = this.$route.query.redirectTo || '/';
+        window.location.href = redirectTo;
+      } catch (err) {
+        this.errorMessage = 'Habitica rejected those credentials. Check your User ID and API Token.';
+      } finally {
+        this.connecting = false;
+      }
     },
-    setTitle () {
-      if (this.resetPasswordSetNewOne) {
-        return;
-      }
-      let title = 'login';
-      if (this.registering) {
-        title = 'register';
-      }
-      this.$store.dispatch('common:setTitle', {
-        section: this.$t(title),
-      });
-    },
-    handleSubmit () {
-      if (this.registering) {
-        this.proceed('local');
-        return;
-      }
-
-      if (this.forgotPassword) {
-        this.forgotPasswordLink();
-        return;
-      }
-
-      if (this.resetPasswordSetNewOne) {
-        this.resetPasswordSetNewOneLink();
-        return;
-      }
-
-      this.login();
-    },
-    forgotPasswordLink: debounce(async function forgotPassLink () {
-      if (!this.username) {
-        window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
-        return;
-      }
-
-      await axios.post('/api/v4/user/reset-password', {
-        email: this.username,
-      });
-
-      window.alert(this.$t('newPassSent')); // eslint-disable-line no-alert
-    }, 500),
-    async resetPasswordSetNewOneLink () {
-      if (!this.password) {
-        window.alert(this.$t('missingNewPassword')); // eslint-disable-line no-alert
-        return;
-      }
-
-      if (this.password !== this.passwordConfirm) {
-        // @TODO i18n and don't use alerts
-        window.alert(this.$t('passwordConfirmationMatch')); // eslint-disable-line no-alert
-        return;
-      }
-
-      const res = await axios.post('/api/v4/user/auth/reset-password-set-new-one', {
-        newPassword: this.password,
-        confirmPassword: this.passwordConfirm,
-        code: this.resetPasswordSetNewOneData.code,
-      });
-
-      if (res.data.message) {
-        window.alert(res.data.message); // eslint-disable-line no-alert
-      }
-
-      this.password = '';
-      this.passwordConfirm = '';
-      this.resetPasswordSetNewOneData.code = '';
-      this.resetPasswordSetNewOneData.hasError = false;
-      this.$router.push({ name: 'login' });
-    },
-    validateUsername: debounce(function valUsername (username) {
-      const usernameIssues = [];
-      if (username.length > 0 && !isEmail(username)) {
-        if (username.length > 20) {
-          usernameIssues.push(this.$t('usernameIssueLength'));
-        }
-        const invalidCharsRegex = /[^a-z0-9_-]/i;
-        const match = username.match(invalidCharsRegex);
-        if (match !== null && match[0] !== null) {
-          usernameIssues.push(this.$t('usernameIssueInvalidCharacters'));
-        }
-      }
-      this.usernameIssues = usernameIssues;
-    }, 500),
   },
 };
 </script>

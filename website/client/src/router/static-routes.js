@@ -58,7 +58,10 @@ export const STATIC_ROUTES = {
       name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
     },
     {
-      name: 'forgotPassword', path: '/forgot-password', component: RegisterLoginReset, meta: { requiresLogin: false },
+      path: '/forgot-password',
+      beforeEnter () {
+        window.location.href = 'https://habitica.com/forgot-password';
+      },
     },
     {
       name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
@@ -91,10 +94,16 @@ export const STATIC_ROUTES = {
       name: 'privacyReview', path: 'privacy-review', component: PrivacyPage, meta: { requiresLogin: false },
     },
     {
-      name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
+      path: '/register',
+      beforeEnter () {
+        window.location.href = 'https://habitica.com/register';
+      },
     },
     {
-      name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
+      path: '/reset-password',
+      beforeEnter () {
+        window.location.href = 'https://habitica.com/forgot-password';
+      },
     },
     {
       name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false },

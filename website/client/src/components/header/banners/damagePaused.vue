@@ -9,14 +9,10 @@
       slot="content"
       class="content"
     >
-      <span
-        v-once
-        class="label d-inline d-sm-none"
-      >{{ $t('innCheckOutBannerShort') }}</span>
-      <span
-        v-once
-        class="label d-none d-sm-inline"
-      >{{ $t('innCheckOutBanner') }}</span>
+      <span class="label d-inline d-sm-none">Routine paused.</span>
+      <span class="label d-none d-sm-inline">
+        Routine Pause is active. Missed Dailies will not damage you or advance Contracts.
+      </span>
       <span class="separator">|</span>
       <span
         v-once

@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { authAsCredentialsState, LOCALSTORAGE_AUTH_KEY } from '@/libs/auth';
+import {
+  authAsCredentialsState,
+  clearAxiosAuth,
+  LOCALSTORAGE_AUTH_KEY,
+  setUpAxios,
+} from '@/libs/auth';
 
 function saveLocalDataAuth (store, apiId, apiToken) {
   const credentialsObj = {
@@ -16,34 +21,23 @@ function saveLocalDataAuth (store, apiId, apiToken) {
   store.state.credentials = authAsCredentialsState(credentialsObj);
 }
 
-export async function register (store, params) {
-  let url = '/api/v4/user/auth/local/register';
-
-  if (params.groupInvite) url += `?groupInvite=${params.groupInvite}`;
-
-  const result = await axios.post(url, {
-    username: params.username,
-    email: params.email,
-    password: params.password,
-    confirmPassword: params.passwordConfirm,
-  });
-
-  const user = result.data.data;
-
-  saveLocalDataAuth(store, user.id, user.apiToken);
+export function register () {
+  window.location.href = 'https://habitica.com/register';
 }
 
 export async function login (store, params) {
-  const url = '/api/v4/user/auth/local/login';
-  const result = await axios.post(url, {
-    username: params.username,
-    // email: params.email,
-    password: params.password,
-  });
+  const apiId = String(params.username || '').trim();
+  const apiToken = String(params.password || '').trim();
+  const credentialsObj = { auth: { apiId, apiToken } };
+  setUpAxios(credentialsObj);
 
-  const user = result.data.data;
-
-  saveLocalDataAuth(store, user.id, user.apiToken);
+  try {
+    await axios.get('/api/v4/user', { params: { userFields: '_id' } });
+    saveLocalDataAuth(store, apiId, apiToken);
+  } catch (err) {
+    clearAxiosAuth();
+    throw err;
+  }
 }
 
 export async function verifyUsername (store, params) {
@@ -125,8 +119,9 @@ export async function appleAuth (store, params) {
 export function logout (store, options = {}) {
   localStorage.clear();
   sessionStorage.clear();
+  clearAxiosAuth();
   const query = options.redirectToLogin === true ? '?redirectToLogin=true' : '';
-  window.location.href = `/logout-server${query}`;
+  window.location.href = `/login${query}`;
 }
 
 export function setNewToken (store, params) {

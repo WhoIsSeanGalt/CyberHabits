@@ -256,20 +256,6 @@ export const UserSchema = new Schema({
     },
   },
 
-  cyberHabits: {
-    habiticaLink: {
-      $type: {
-        userId: String,
-        encryptedApiToken: String,
-        linkedAt: Date,
-        lastVerifiedAt: Date,
-        active: { $type: Boolean, default: false },
-        terminationDate: Date,
-      },
-      default: () => ({}),
-    },
-  },
-
   flags: {
     customizationsNotification: { $type: Boolean, default: false },
     showTour: { $type: Boolean, default: true },

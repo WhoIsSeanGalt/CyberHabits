@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 
-export const LOCALSTORAGE_AUTH_KEY = 'habit-mobile-settings';
+export const LOCALSTORAGE_AUTH_KEY = 'cyberhabits-habitica-credentials';
 
 export function authAsCredentialsState (authObject) {
   return {
@@ -30,6 +30,11 @@ export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefe
   }
 
   return false;
+}
+
+export function clearAxiosAuth () {
+  delete axios.defaults.headers.common['x-api-user'];
+  delete axios.defaults.headers.common['x-api-key'];
 }
 
 export function buildAppleAuthUrl () {

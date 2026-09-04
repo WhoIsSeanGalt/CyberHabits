@@ -295,18 +295,7 @@ router.beforeEach(async (to, from, next) => {
     });
   }
 
-  // Keep the redirectTo query param when going from login to register
-  // !to.query.redirectTo is to avoid entering a loop of infinite redirects
-  if (to.name === 'register' && !to.query.redirectTo && from.name === 'login' && from.query.redirectTo) {
-    return next({
-      name: 'register',
-      query: {
-        redirectTo: from.query.redirectTo,
-      },
-    });
-  }
-
-  if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
+  if (isUserLoggedIn && to.name === 'login') {
     return next({ name: 'tasks' });
   }
 
