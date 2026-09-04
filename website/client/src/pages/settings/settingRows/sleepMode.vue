@@ -4,7 +4,7 @@
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
       <td class="settings-label">
-        Routine Pause
+        Hibernate
       </td>
       <td class="settings-value">
         {{ user.preferences.sleep ? 'Active' : 'Inactive' }}
@@ -22,11 +22,11 @@
     >
       <td colspan="3">
         <div class="dialog-title">
-          Routine Pause
+          Hibernate
         </div>
         <div class="dialog-disclaimer">
-          Use Routine Pause when illness, travel, or life makes your normal
-          schedule unavailable. This setting is separate from the Public Channel.
+          Hibernate when illness, travel, or life makes your normal schedule
+          unavailable. This setting is separate from The Sprawl.
         </div>
         <ul>
           <li>Missed Dailies will not damage your Health.</li>
@@ -35,7 +35,7 @@
         </ul>
         <div class="input-area">
           <save-cancel-buttons
-            :primary-button-label="user.preferences.sleep ? 'Resume Routine' : 'Pause Routine'"
+            :primary-button-label="user.preferences.sleep ? 'Wake Up' : 'Hibernate'"
             @saveClicked="toggleSleep(); requestCloseModal();"
             @cancelClicked="requestCloseModal();"
           />

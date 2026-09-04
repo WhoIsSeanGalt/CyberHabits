@@ -9,16 +9,16 @@
       slot="content"
       class="content"
     >
-      <span class="label d-inline d-sm-none">Routine paused.</span>
+      <span class="label d-inline d-sm-none">Hibernating.</span>
       <span class="label d-none d-sm-inline">
-        Routine Pause is active. Missed Dailies will not damage you or advance Contracts.
+        Hibernate is active. Missed Dailies will not damage you or advance Contracts.
       </span>
       <span class="separator">|</span>
       <span
         v-once
         class="resume"
         @click="resumeDamage()"
-      >{{ $t('resumeDamage') }}</span>
+      >Wake Up</span>
     </div>
   </base-banner>
 </template>

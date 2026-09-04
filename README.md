@@ -43,8 +43,8 @@ names:
 - Pets → **Bots**
 - Mounts → **Rides**
 - Skills / Spells → **Hacks**
-- Tavern chat → **Public Channel**
-- Pause Damage / sleep state → **Routine Pause**
+- Tavern chat → **The Sprawl**
+- Pause Damage / sleep state → **Hibernate**
 
 ## Current status
 
